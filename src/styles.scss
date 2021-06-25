@@ -1,1 +1,284 @@
-/* You can add global styles to this file, and also import other style files */
+$grey: #333;
+$best-font: Arial, Helvetica, sans-serif;
+$selected-color: #1a73e8;
+$paragraph-color: #202164;
+:host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    color: $grey;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 8px 0;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 1.2em;
+}
+
+p {
+    margin: 0;
+}
+
+$green: #008744;
+$blue: #0057e7;
+$red: #d62d20;
+$yellow: #ffa700;
+$white: #eee;
+$width: 100px;
+
+.loader {
+  position: relative;
+  margin: 0 auto;
+  width: $width;
+  &:before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+}
+
+.circular {
+  animation: rotate 2s linear infinite;
+  height: 100%;
+  transform-origin: center center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.path {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+  stroke-linecap: round;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+
+@keyframes color {
+  100%,
+  0% {
+    stroke: $red;
+  }
+  40% {
+    stroke: $blue;
+  }
+  66% {
+    stroke: $green;
+  }
+  80%,
+  90% {
+    stroke: $yellow;
+  }
+}
+
+.showbox {
+  position: absolute;
+  top: calc( 50vh - 80px ) ;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content > li {
+  padding-inline-start: 10px!important;
+}
+
+.dropdown:hover .dropdown-content {display: block; top:25px;}
+
+header {
+    @extend .flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%), 0px 2px 4px -1px rgb(0 0 0 / 20%);
+}
+svg {
+    padding: 15px;
+}
+
+ul {
+    list-style-type: none;
+    @extend .flex-grow-80;
+    padding-inline-start: 0%;
+}
+
+li {
+    @extend .flex;
+    @extend .clickable;
+    align-items: center;
+    text-decoration: none;
+    padding-inline-start: 40px;
+    height: 40px;
+    font-size: 16px;
+    color: grey;
+    font-family: $best-font;
+}
+
+li:hover {
+    color: $selected-color;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-20 {
+    @extend .flex;
+    flex: 0.2;
+}
+
+.flex-60 {
+    @extend .flex;
+    flex: 0.6;
+}
+
+.flex-80 {
+    @extend .flex;
+    flex: 0.8;
+}
+
+.search-box {
+    @extend .flex-grow-100;
+    border: unset;
+    outline: unset;
+    background: #f1f3f4;
+    height: 40px;
+    padding-left: 50px;
+    font-size: 16px;
+}
+
+.flex-grow-100 {
+    flex-grow: 1;
+}
+
+.flex-grow-80 {
+    flex-grow: 0.8;
+}
+
+.flex-end {
+    @extend .flex;
+    justify-content: flex-end;
+}
+
+.content {
+    flex-direction: column;
+    height: calc(100vh - 64px);
+    overflow: auto;
+}
+
+.block {
+    border: 1px solid #ccc;
+    padding: 16px 16px;
+    border-radius: 16px;
+    width: 60%;
+    font-family: $best-font;
+    margin-bottom: 10px;
+}
+
+.block-title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.flex-wrap {
+    @extend .flex;
+    flex-wrap: wrap;
+}
+
+.show-more {
+    @extend .flex;
+    width: 60%;
+    padding: 10px 16px;
+    justify-content: flex-end;
+    color: $selected-color;
+    font-family: $best-font;
+    font-weight: 600;
+}
+.show-more > span {
+    @extend .clickable;
+}
+.selected-search-type {
+    background: rgba(66, 133, 244, 0.149);
+    color: $selected-color;
+    border-bottom-right-radius: 50px;
+    border-top-right-radius: 50px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.no-more {
+    font-family: $best-font;
+    font-size: 30px;
+    font-weight: 100;
+}
+
+.submit-button {
+  background-color: #f8f9fa;
+  border: 1px solid #f8f9fa;
+  border-radius: 4px;
+  color: #3c4043;
+  font-family: arial, sans-serif;
+  font-size: 14px;
+  margin: 11px 4px;
+  padding: 0 16px;
+  line-height: 27px;
+  height: 36px;
+  min-width: 54px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
