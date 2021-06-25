@@ -1,0 +1,10 @@
+$paragraph-color: #202164;
+:host::ng-deep {
+    a {
+        text-decoration: none;
+        color: $paragraph-color;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+}

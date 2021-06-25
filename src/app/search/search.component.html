@@ -1,0 +1,69 @@
+<header>
+  <span class="flex-20">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list"
+      viewBox="0 0 16 16">
+      <path fill-rule="evenodd"
+        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+    </svg>
+    <img class="clickable" src="https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg"
+      [routerLink]="['/']" alt="logo"></span>
+  <span class="flex-60">
+    <input class="search-box" placeholder="Search for topics, locations & sources" type="text" [(ngModel)]="query"
+      (change)="fetchResults()">
+  </span>
+  <span class="flex-end flex-20 dropdown"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+      class="bi bi-grid-3x3-gap-fill" viewBox="0 0 16 16">
+      <path
+        d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V7zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V7zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2z" />
+    </svg>
+    <div class="dropdown-content">
+      <li [routerLink]="['/']" >Home Page</li>
+      <li [routerLink]="['/history']" >History</li>
+    </div>
+  </span>
+</header>
+<div class="flex">
+  <div class="flex-20">
+    <ul>
+      <li [ngClass]="{'selected-search-type' : searchType === 'search'}" (click)="fetchResults('search')">Search</li>
+      <li [ngClass]="{'selected-search-type' : searchType === 'news'}" (click)="fetchResults('news')">News</li>
+      <li [ngClass]="{'selected-search-type' : searchType === 'images'}" (click)="fetchResults('images')">Images</li>
+      <li [ngClass]="{'selected-search-type' : searchType === 'scholar'}" (click)="fetchResults('scholar')">Scholar</li>
+      <li [ngClass]="{'selected-search-type' : searchType === 'crawl'}" (click)="fetchResults('crawl')">Crawl</li>
+    </ul>
+  </div>
+  <div class="flex-80 content">
+    <h2>Top Results</h2>
+    <span class="show-more"><span *ngIf="dataArray.length > end"
+        (click)="end = dataArray.length; dataArray = dataArray.reverse();">More Results</span></span>
+    <span *ngIf="scholarTemplate" [innerHTML]="scholarTemplate"></span>
+    <div class="block" *ngFor="let data of dataArray | slice : start : end">
+      <a class="block-title" [href]="data?.link">
+        {{data?.title}}
+      </a>
+      <p *ngIf="data?.summary" [innerHTML]="data.summary"></p>
+      <p *ngIf="data?.g_review_stars" [innerHTML]="data.g_review_stars"></p>
+      <p *ngIf="data?.description" [innerHTML]="data?.description"></p>
+    </div>
+    <div class="flex-wrap">
+      <div *ngFor="let data of imageArray">
+        <a [href]="data?.link?.href">
+          <img *ngIf="data?.image?.src" [src]="data?.image?.src" alt="">
+        </a>
+      </div>
+    </div>
+    <div class="no-more" *ngIf="dataArray.length === 0 && imageArray.length === 0 && !isLoading">
+      No results for {{query}}.
+    </div>
+  </div>
+</div>
+<div>
+</div>
+
+<div class="showbox" *ngIf="isLoading">
+  <div class="loader">
+    <svg class="circular" viewBox="25 25 50 50">
+      <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+    </svg>
+  </div>
+</div>
