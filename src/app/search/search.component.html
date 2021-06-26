@@ -9,27 +9,38 @@
       [routerLink]="['/']" alt="logo"></span>
   <span class="flex-60">
     <input class="search-box" placeholder="Search for topics, locations & sources" type="text" [(ngModel)]="query"
-      (change)="fetchResults()">
+      (change)="fetchResults(query)">
   </span>
   <span class="flex-end flex-20 dropdown"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
       class="bi bi-grid-3x3-gap-fill" viewBox="0 0 16 16">
       <path
         d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V7zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V7zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2z" />
     </svg>
-    <div class="dropdown-content">
+    <div class="dropdown-content" #dropdown>
+      <li >Search Page</li>
       <li [routerLink]="['/']" >Home Page</li>
-      <li [routerLink]="['/history']" >History</li>
+      <li [routerLink]="['/history']" >History Page</li>
+      <li [ngClass]="{'selected-search-type' : searchType === 'search', 'mobile-options': 'true'}" (click)="fetchResults(query, 'search')">Search</li>
+      <li [ngClass]="{'selected-search-type' : searchType === 'news', 'mobile-options': 'true'}" (click)="fetchResults(query, 'news')">News</li>
+      <li [ngClass]="{'selected-search-type' : searchType === 'images', 'mobile-options': 'true'}" (click)="fetchResults(query, 'images')">Images</li>
+      <li [ngClass]="{'selected-search-type' : searchType === 'scholar', 'mobile-options': 'true'}" (click)="fetchResults(query, 'scholar')">Scholar</li>
+      <li [ngClass]="{'selected-search-type' : searchType === 'crawl', 'mobile-options': 'true'}" (click)="fetchResults(query, 'crawl')">Crawl</li>
     </div>
   </span>
 </header>
+<br>
+<span class="mobile-search">
+  <input class="search-box" placeholder="Search for topics, locations & sources" type="text" [(ngModel)]="query"
+  (change)="fetchResults(query)">
+</span>
 <div class="flex">
   <div class="flex-20">
     <ul>
-      <li [ngClass]="{'selected-search-type' : searchType === 'search'}" (click)="fetchResults('search')">Search</li>
-      <li [ngClass]="{'selected-search-type' : searchType === 'news'}" (click)="fetchResults('news')">News</li>
-      <li [ngClass]="{'selected-search-type' : searchType === 'images'}" (click)="fetchResults('images')">Images</li>
-      <li [ngClass]="{'selected-search-type' : searchType === 'scholar'}" (click)="fetchResults('scholar')">Scholar</li>
-      <li [ngClass]="{'selected-search-type' : searchType === 'crawl'}" (click)="fetchResults('crawl')">Crawl</li>
+      <li [ngClass]="{'selected-search-type' : searchType === 'search'}" (click)="fetchResults(query, 'search')">Search</li>
+      <li [ngClass]="{'selected-search-type' : searchType === 'news'}" (click)="fetchResults(query, 'news')">News</li>
+      <li [ngClass]="{'selected-search-type' : searchType === 'images'}" (click)="fetchResults(query, 'images')">Images</li>
+      <li [ngClass]="{'selected-search-type' : searchType === 'scholar'}" (click)="fetchResults(query, 'scholar')">Scholar</li>
+      <li [ngClass]="{'selected-search-type' : searchType === 'crawl'}" (click)="fetchResults(query, 'crawl')">Crawl</li>
     </ul>
   </div>
   <div class="flex-80 content">
