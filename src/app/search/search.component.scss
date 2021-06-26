@@ -1,4 +1,13 @@
 $paragraph-color: #202164;
+
+.mobile-search > input{    
+    width: 100%;
+}
+
+.mobile-search, .mobile-options{
+    display: none;
+}
+
 :host::ng-deep {
     a {
         text-decoration: none;
@@ -6,5 +15,20 @@ $paragraph-color: #202164;
     }
     a:hover {
         text-decoration: underline;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .flex-60 > input {
+        display: none;
+    }
+    .flex > div.flex-20{
+        display: none;
+    }
+    .mobile-search{
+        display: block;
+    }
+    .mobile-options{
+        display: flex;
     }
 }

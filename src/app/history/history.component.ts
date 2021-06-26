@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AppState } from '../app.state';
 import { HistoryModel } from '../history.model';
 import * as HistoryActions from '../history.actions'
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-history',
@@ -12,15 +13,15 @@ import * as HistoryActions from '../history.actions'
 })
 export class HistoryComponent implements OnInit {
 
-  constructor(private store: Store<AppState>) {
-    this.historyArray = store.select('history');
+  constructor(private api: ApiService) {
+    this.historyArray = api.getStoreRef().select('history');
    }
-   query:string;
+  query:string;
   historyArray : Observable<HistoryModel[]>;
   ngOnInit(): void {
   }
 
   deleteFromStore(index){
-    this.store.dispatch(new HistoryActions.RemoveHistory(index));   
+    this.api.getStoreRef().dispatch(new HistoryActions.RemoveHistory(index));   
   }
 }

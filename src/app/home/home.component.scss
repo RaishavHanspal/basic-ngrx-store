@@ -21,3 +21,19 @@
 header{
     box-shadow: unset;
 }
+
+.flex-center{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+@media screen and (max-width: 500px) {
+    .search-input{
+        width: 80%;
+    }
+
+    .flex-center{
+        flex-direction: column;
+    }
+}

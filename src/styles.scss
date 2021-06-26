@@ -16,6 +16,8 @@ html,
 body {
     margin: 0;
     padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden ;
 }
 
 h1,
@@ -281,4 +283,23 @@ li:hover {
   text-align: center;
   cursor: pointer;
   user-select: none;
+}
+
+@media screen and (max-width: 500px) {
+  div.flex{
+    flex-direction: column;
+  }
+  .flex > div.flex-80{
+      flex: 1;
+      padding: 10px;
+  }
+  .content{
+      align-items: center;
+  }
+  .block{
+      word-break: break-all;
+  }
+  .selected-search-type{
+    border-radius: unset;
+  }
 }

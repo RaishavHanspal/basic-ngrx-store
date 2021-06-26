@@ -6,8 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SearchFilterPipe implements PipeTransform {
 
-  transform(value:any, searchInput:string): any {
-    return searchInput ? value.filter(data => data?.queryParams?.q.includes(searchInput)) : value;
+  transform(value:any, searchInput:string, searchType:string): any {
+    return searchInput ? value.filter(data => (`${data?.queryParams?.q} in ${data?.queryParams?.t}`.includes(searchInput))) : value;
   }
 
 }
